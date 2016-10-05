@@ -2,7 +2,7 @@
 /*
 Plugin Name: addmap
 Description: Whereabouts (google maps API): addmap
-Version: 0.0.8
+Version: 0.0.9
 Author: HalcheSM
 Plugin URI: https://github.com/testapiw/addmap
 

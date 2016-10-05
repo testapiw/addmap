@@ -74,7 +74,7 @@
     win.initAddMap = function () {
       
         var  gmap = google.maps
-           , geocoder = new gmap.Geocoder()
+           //, geocoder = new gmap.Geocoder()
            , options, location
            , marker
            , map, tm2
@@ -152,42 +152,59 @@ function getLocation() {
         
 function setPositionMap (response) {
         
-        var location;
+        var gps, rx; //geolocation;
    
-        location = (response.gps) 
+        /*geolocation = (response.gps) 
                 ? {'location': response.gps}
-                : {'address' : (response.venue || response.city) +', '+ response.country};
+                : {'address' : (response.venue || response.city) +', '+ response.country||""};
                 
-         geocoder.geocode(location, function(results, status) {
+         geocoder.geocode(geolocation, function(results, status) {
 
             if (status === gmap.GeocoderStatus.OK) {
                     
-                    options.center = results[0].geometry.location;
+                    options.center = results[0].geometry.location;*/
                     
-                    options.zoom = (response.venue.replace(/ \(.*\)/,'') === response.country) 
-                        ? 5: 9;
+                    //response.venue.replace(/ \(.*\)/,'') === response.country
+                    //options.zoom = (results[0].types.indexOf('country') === -1)  ? 5: 9;
                     
- 
-                    marker.setPosition(options.center);
+                    gps = getGPS(response);
+                    
+                    rx = new RegExp(response.country, 'g');
+
+                    marker.setPosition(gps);
                     
                     marker.setMap(map);
                     
-                    map.panTo(options.center);
-                
+                    map.setZoom(rx.test(response.venue) ? 5 : 9);
+                    
+                    map.panTo(gps);
+
+                 
                     dataUpdate(response);
                     
                     elmap.show();
                     
-            } 
+         /*   } 
             else { 
                     hideMap();
                 
                     if(console){console.log(status);}
 
-            }       
+            }      
                 
-        });
+        });*/ 
            
+    }
+    
+    
+    
+    function getGPS (data) {
+        
+        var gps = data.gps;
+        
+        if (!gps) {return false;}
+        
+           return {'lat' : parseFloat(gps.lat), 'lng' : parseFloat(gps.lng)};
     }
     
     

@@ -136,6 +136,8 @@ private static function getData () {
         
     }
    
+   $data['test'] = $location;
+    
     return $data;
 }
 
