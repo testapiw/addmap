@@ -1,14 +1,15 @@
 <?php
 /*
 Plugin Name: addmap
-Description: Whereabouts (google map API): Addmap
+Description: Whereabouts (google maps API): addmap
 Version: 0.0.8
 Author: HalcheSM
-Author URI: http://
+Plugin URI: https://github.com/testapiw/addmap
 
 	Copyright 2016  HalcheSM  (email: testapiw@gmail.com)
 */
 
+//Author URI: 
 
 define( 'ADDMAP_DIR', plugin_dir_path(__FILE__));
 define( 'ADDMAP_URL', plugin_dir_url(__FILE__));
