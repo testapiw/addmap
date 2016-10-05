@@ -54,7 +54,7 @@
         if (data.state && !rx.test(data.state)) { html.push(data.state);}
             
             
-        info_location.hide(100).html('<span>' + html.join('</span>, <span>') + '</span>').show(200);
+        info_location.html('<span>' + html.join('</span>, <span>') + '</span>');
         
         if (data.time) {
             lupd = 'Последнее обновление: ' + data.time;
