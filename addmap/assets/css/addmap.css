@@ -1,0 +1,16 @@
+/* 
+    Created on : 04.10.2016, 10:56:44
+    Author     : HalcheSM
+*/
+.addmap .lastupd {
+  font-size: 10px;
+  line-height: 1.3em; }
+.addmap .gmap {
+  background: rgba(128, 128, 128, 0.28);
+  position: relative;
+  margin-top: 20px; }
+.addmap p {
+  margin: 0;
+  padding: 0; }
+
+/*# sourceMappingURL=addmap.css.map */
