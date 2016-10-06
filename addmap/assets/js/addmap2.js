@@ -225,8 +225,8 @@ function setPositionMap (response) {
                             
         mark = new gmap.Marker({
                 icon: new gmap.MarkerImage(
-                    '/wp-includes/images/imgpsh_fullsize.png',
-                    
+                    //'/wp-includes/images/imgpsh_fullsize.png',
+                    '/wp-content/plugins/addmap/assets/images/imgpsh_fullsize.png',
                     new gmap.Size(76,97),
                     new gmap.Point(0,0),
                     new gmap.Point(35, 110)
