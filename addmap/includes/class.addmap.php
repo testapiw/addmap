@@ -136,7 +136,7 @@ private static function getData () {
         
     }
    
-   $data['test'] = $location;
+   //$data['test'] = $location;
     
     return $data;
 }
@@ -177,6 +177,18 @@ function whereabouts_addmap_display_location( $args ) {
         $attr = (isset($data['gps']) ) 
                 ? ' data-lat="' . $data['gps']['lat']. '"'
                 . ' data-lng="' . $data['gps']['lng']. '"' : '';
+        
+        extract( shortcode_atts( array('width' => '', 'height' => '', 'wrapper' => ''), $args ) );
+        
+        if ( !empty($wrapper) ) {
+             $attr .= ' data-wrapper="1"';
+        }
+        else {
+            $attr .= ( !empty($width) && !empty($height) ) 
+                    ? ' data-width="'  . $width  . '"'
+                    . ' data-height="' . $height . '"' : '';
+        }    
+        
         
         $output = '<div class="addmap"><p class="info_location">'.$info.'</p>'
                 . '<div id="gmap" '.$attr.'></div></div>';

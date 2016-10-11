@@ -6,15 +6,15 @@
         , widget, widget_block, w
         , elmap
         , venue, city, country, state, lastupd, info_location
+        , cssmap, mapW, mapH
         
     ;
     
     widget_block = jQuery('.widget');
-    w = widget_block.css('width');
+   
     
     widget  = jQuery('.addmap');
-    elmap   = jQuery('#gmap', widget)
-                .css({width: w, height: w});
+    elmap   = jQuery('#gmap', widget);
     
     venue   = jQuery('.venue', widget);
     city    = jQuery('.city', widget);
@@ -30,7 +30,7 @@
             .attr("target", "_blank")[0],
     
 
-    сreateMap();
+        сreateMap();
     
 
     /*
@@ -152,21 +152,9 @@ function getLocation() {
         
 function setPositionMap (response) {
         
-        var gps, rx; //geolocation;
+        var gps, rx; 
    
-        /*geolocation = (response.gps) 
-                ? {'location': response.gps}
-                : {'address' : (response.venue || response.city) +', '+ response.country||""};
-                
-         geocoder.geocode(geolocation, function(results, status) {
-
-            if (status === gmap.GeocoderStatus.OK) {
-                    
-                    options.center = results[0].geometry.location;*/
-                    
-                    //response.venue.replace(/ \(.*\)/,'') === response.country
-                    //options.zoom = (results[0].types.indexOf('country') === -1)  ? 5: 9;
-                    
+                   
                     gps = getGPS(response);
                     
                     rx = new RegExp(response.country, 'g');
@@ -183,16 +171,7 @@ function setPositionMap (response) {
                     dataUpdate(response);
                     
                     elmap.show();
-                    
-         /*   } 
-            else { 
-                    hideMap();
-                
-                    if(console){console.log(status);}
 
-            }      
-                
-        });*/ 
            
     }
     
@@ -247,20 +226,45 @@ function setPositionMap (response) {
         clearTimeout(tm2);
         
         tm2 = setTimeout(function(){
-            var w = widget_block.css('width');
-            
-            elmap.css({width:w,height:w});
+            setSizeMap();
             
             map.panTo(options.center);
             
         }, 250);
         
     });         
-        
-        
+    
+      
   };// initmap
    
     
+    /*
+     * установка размерров карты
+     * w - по шиине виджета (16/9)
+     * mapW, mapH - на основании атрибутов шорткода
+     * 
+     */    
+    function setSizeMap () {
+        
+        if (elmap.attr('data-wrapper')) { // 16/9
+            w = jQuery('.wpb_text_column').css('width');
+          
+            elmap.css({width: w, height: parseInt(w)/(16/9) + "px"});
+        } 
+        else {
+        
+            mapW = parseInt(elmap.attr('data-width'));
+            mapH = parseInt(elmap.attr('data-height'));
+    
+            if (mapW && mapH) {
+                elmap.css({width: mapW, height: mapH});
+            }
+            else {
+                w = widget_block.css('width');
+                elmap.css({width: w, height: w});
+            }
+        }    
+    } 
 
    
    function сreateMap() {
@@ -268,7 +272,11 @@ function setPositionMap (response) {
             var key = '&key='+ window.wp_data.gkey; //.replace
            // load api 
             jQuery('head').append('<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=ru&callback=initAddMap'+key+'"></script>') ;
+            
+             setSizeMap();
+            
         } catch(e){
+            
             if (console) console.log(e);
         }
    }
